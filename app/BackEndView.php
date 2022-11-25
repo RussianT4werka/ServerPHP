@@ -52,4 +52,14 @@ class BackEndView
         return $this->twig->render('add-article.twig',['article' => $article, 'categories'=>$categories, 'target'=> $target]);
     }
 
+    public function showAddCategoryForm($categories, $target)
+    {
+        return $this->twig->render('add-category.twig',['categories'=>$categories, 'target'=> $target]);
+    }
+
+    public function showAddTagForm($tags, $target)
+    {
+        return $this->twig->render('add-tag.twig',['tags'=>$tags, 'target'=> $target]);
+    }
+
 }

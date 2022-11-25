@@ -205,6 +205,20 @@ use Auth;
         return $this->responseWrapper($html);
     }
 
+    public function showAddCategoryForm(ServerRequestInterface $request): ResponseInterface
+    {   $categories = [];
+        $target = 'category-add';
+        $html = $this->View->showAddCategoryForm($categories, $target );
+        return $this->responseWrapper($html);
+    }
+
+    public function showAddTagForm(ServerRequestInterface $request): ResponseInterface
+    {   $tags = [];
+        $target = 'tag-add';
+        $html = $this->View->showAddTagForm($tags, $target );
+        return $this->responseWrapper($html);
+    }
+
     public function showUpdateArticleForm(ServerRequestInterface $request, array $arg): ResponseInterface
     {
         $article = $this->getById('articles', $arg['id']);
@@ -230,10 +244,42 @@ use Auth;
         $article->content = $requestBody['content'];
         $date = date('Y-m-d H:i:s', time());
         $article->created_at = $date;
-        $article->deleted_at = 0;
+        $article->deleted_at = $date;
         $article->favorites = 0;
         //dd($article);
         $article->save();
+    }
+
+    public function saveCategory(array $requestBody,  $id)
+    {
+        if ($id <> null){
+            $category = $this->Model->get('categories',$id);
+        }else{
+            $category = $this->Model->create('categories');
+        }
+        $category->title = $requestBody['title'];
+        $category->slug = Slugger::slugify($requestBody['title']);
+        $category->image = $requestBody['image'];
+        $category->description = $requestBody['description'];
+        $category->save();
+    }
+
+    public function saveTag(array $requestBody,  $id)
+    {
+        if ($id <> null){
+            $tag = $this->Model->get('tags',$id);
+        }else{
+            $tag = $this->Model->create('tags');
+        }
+        $tag->title = $requestBody['title'];
+        $tag->save();
+    }
+
+    public function insertTag(ServerRequestInterface $request): ResponseInterface
+    {
+        $requestBody = $request->getParsedBody();
+        $this->saveTag($requestBody,$id = null);
+        return $this->goUrl('/admin/tags');
     }
 
     public function insertArticle(ServerRequestInterface $request): ResponseInterface
@@ -241,6 +287,14 @@ use Auth;
         $requestBody = $request->getParsedBody();
         $this->saveArticle($requestBody,$id = null);
         return $this->goUrl('/admin/articles');
+    }
+
+
+    public function insertCategory(ServerRequestInterface $request): ResponseInterface
+    {
+        $requestBody = $request->getParsedBody();
+        $this->saveCategory($requestBody,$id = null);
+        return $this->goUrl('/admin/categories');
     }
 
     public function updateArticle(ServerRequestInterface $request, array $arg): ResponseInterface

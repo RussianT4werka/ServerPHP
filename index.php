@@ -36,13 +36,13 @@ $router->group('/admin', function (\League\Route\RouteGroup $router) {
     $router->map('GET', '/article-add', 'App\BackEndController::showAddArticleForm');
     $router->map('POST', '/article-add', 'App\BackEndController::insertArticle');
 
-    $router->map('GET', '/tags', 'App\BackEndController::showTagsList');
-    $router->map('GET', '/tag-add', 'App\BackEndController::showAddTagForm');
-    $router->map('POST', '/tag-add', 'App\BackEndController::insertTag');
-
     $router->map('GET', '/categories', 'App\BackEndController::showCategoriesList');
     $router->map('GET', '/category-add', 'App\BackEndController::showAddCategoryForm');
     $router->map('POST', '/category-add', 'App\BackEndController::insertCategory');
+
+    $router->map('GET', '/tags', 'App\BackEndController::showTagsList');
+    $router->map('GET', '/tag-add', 'App\BackEndController::showAddTagForm');
+    $router->map('POST', '/tag-add', 'App\BackEndController::insertTag');
 
     $router->map(
         'GET',
