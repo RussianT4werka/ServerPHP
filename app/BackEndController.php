@@ -228,11 +228,30 @@ use Auth;
         return $this->responseWrapper($html);
     }
 
+    public function showUpdateTagsForm(ServerRequestInterface $request, array $arg): ResponseInterface
+    {
+        $tags = $this->getById('tags', $arg['id']);
+        $target = 'tags-update/'.$arg['id'];
+        $html = $this->View->showAddTagForm($tags, $target );
+        return $this->responseWrapper($html);
+    }
+
+    public function showUpdateCategoriesForm(ServerRequestInterface $request, array $arg): ResponseInterface
+    {
+        $categories = $this->getById('categories', $arg['id']);
+        $target = 'categories-update/'.$arg['id'];
+        $html = $this->View->showAddCategoryForm($categories, $target );
+        return $this->responseWrapper($html);
+    }
+
     public function saveArticle(array $requestBody,  $id)
     {
-        if ($id <> null){
+        if ($id <> null)
+        {
             $article = $this->Model->get('articles',$id);
-        }else{
+        }
+        else
+        {
             $article = $this->Model->create('articles');
         }
         $article->title = $requestBody['title'];
@@ -302,6 +321,19 @@ use Auth;
         $requestBody = $request->getParsedBody();
         $this->saveArticle($requestBody, $arg['id']);
         return $this->goUrl('/admin/articles');
+    }
+
+    public function updateTags(ServerRequestInterface $request, array $arg): ResponseInterface
+    {
+        $requestBody = $request->getParsedBody();
+        $this->saveTag($requestBody, $arg['id']);
+        return $this->goUrl('/admin/tags');
+    }
+    public function updateCategories(ServerRequestInterface $request, array $arg): ResponseInterface
+    {
+        $requestBody = $request->getParsedBody();
+        $this->saveCategory($requestBody, $arg['id']);
+        return $this->goUrl('/admin/categories');
     }
 
 }

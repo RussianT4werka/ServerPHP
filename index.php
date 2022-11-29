@@ -54,6 +54,28 @@ $router->group('/admin', function (\League\Route\RouteGroup $router) {
         '/article-update/{id:number}',
         'App\BackEndController::updateArticle'
     );
+
+    $router->map(
+        'GET',
+        '/tags-edit/{id:number}',
+        'App\BackEndController::showUpdateTagsForm'
+    );
+    $router->map(
+        'POST',
+        '/tags-update/{id:number}',
+        'App\BackEndController::updateTags'
+    );
+
+    $router->map(
+        'GET',
+        '/categories-edit/{id:number}',
+        'App\BackEndController::showUpdateCategoriesForm'
+    );
+    $router->map(
+        'POST',
+        '/categories-update/{id:number}',
+        'App\BackEndController::updateCategories'
+    );
 })->middleware(new \App\Middleware\AuthMiddleware);
 
 $response = $router->dispatch($request);

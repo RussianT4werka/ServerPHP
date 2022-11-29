@@ -46,7 +46,9 @@ class FrontEndController
     {
         $articles = $this->getAll('articles');
         $categories = $this->getAll('categories');
-        $html = $this->View->articleList($articles, $categories);
+        $tags = $this->getAll('tags');
+        $users = $this->getAll('users');
+        $html = $this->View->articleList($articles, $categories, $tags, $users);
         return $this->responseWrapper($html);
     }
     public function article(ServerRequestInterface $request, array $arg): ResponseInterface

@@ -44,10 +44,14 @@
                     <tbody>
                     {% for article in articles %}
                     <tr>
-                        <td><b>{{ article.title }}</b></td>
+                        <td>
+                            <b>{{ article.title }}</b>
+                        </td>
+
                         <td>
                             <img src="{{ article.intro_image }}" class="rounded-circle p-1 border" alt="..." width="90" height="90">
-                            </td>
+                        </td>
+
                         <td>
                             {% for category in categories %}
                                 {% if article.categories_id == category.id %}

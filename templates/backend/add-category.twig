@@ -5,7 +5,7 @@
 {% block content %}
     <div class="row">
         <div class="col mx-auto">
-            <h6 class="mb-0 text-uppercase">Добавить категорию</h6>
+            <h6 class="mb-0 text-uppercase">Добавить/изменить категорию</h6>
 
             <hr/>
             <div class="card border-top border-0 border-4 border-primary">
@@ -13,13 +13,13 @@
                     <form class="row g-3" action="/admin/{{ target }}" method="post">
                         <div class="col-md-6">
                             <label for="title" class="form-label">Название</label>
-                            <input name="title" type="text" class="form-control" id="title" value="{{ category.title }}">
+                            <input name="title" type="text" class="form-control" id="title" value="{{ categories.title }}">
                         </div>
 
                         <div class="col-12">
-                            <label for="intro_text" class="form-label">Описание</label>
+                            <label for="description" class="form-label">Описание</label>
                             <textarea class="summernote" name="description" id="summernote" >
-                                {{ category.description }}
+                                {{ categories.description }}
                             </textarea>
                         </div>
 
@@ -27,7 +27,7 @@
                             <div class="row">
                                 <div class="col">
                                     <label  class="form-label">Выберите картинку</label>
-                                    <input value="{{ category.image }}" id="ckfinder-input" type="text" class="form-control" name="image">
+                                    <input value="{{ categories.image }}" id="ckfinder-input" type="text" class="form-control" name="image">
                                 </div>
                                 <div class="col">
                                     <label  class="form-label">&nbsp;</label>
